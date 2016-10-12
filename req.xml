@@ -1,0 +1,141 @@
+<test name="LearnModel">
+  <inputfiles name='GM12878_chr11_binary.txt'/>
+  <inputfiles name='K562_chr11_binary.txt'>
+    This is the directory containing the binarized input files. Only file names containing ‘_binary’ are used by
+default.
+  </inputfiles>
+</test>
+
+<test name="BinarizeBed">
+  <inputfiles name="chromosomelengthfile">
+    A two column tab delimited file with the first column being the chromosome and the
+second being the chromosome length. For genome assemblies hg18, hg19, hg38, mm9, mm10, rn5, rn6, danRer7,
+danRer10, dm3, dm6, ce6, and ce10 these can be found in the directory CHROMSIZES.
+  </inputfiles>
+  <inputfiles>
+    The directory containing the input bed files.
+  </inputfiles>
+  <inputfiles name="cellmarkfiletable">
+    A tab delimited file each row contains the cell type or other identifier for a groups of marks,
+then the associated mark, then the name of a bed file, and optionally a corresponding control bed file
+  </inputfiles>
+</test>
+
+
+<test name="BinarizeBam">
+  <inputfiles name="chromosomelengthfile">
+    A two column tab delimited file with the first column being the chromosome and the
+second being the chromosome length. For genome assemblies hg18, hg19, hg38, mm9, mm10, rn5, rn6, danRer7,
+danRer10, dm3, dm6, ce6, and ce10 these can be found in the directory CHROMSIZES.
+  </inputfiles>
+  <inputfiles>
+    The directory containing the input bam files.
+  </inputfiles>
+  <inputfiles name="cellmarkfiletable">
+    A tab delimited file each row contains the cell type or other identifier for a groups of marks,
+then the associated mark, then the name of a bed file, and optionally a corresponding control bam file
+  </inputfiles>
+</test>
+
+
+<test name="BinarizeSignal">
+  <inputfiles>
+  Signal data files have ‘_signal’ in
+  the file name. The format for the signal file is the first line contains the name of the cell separated by a tab with the name
+  of the chromosome. The second line contains in tab delimited form the name of each mark. The remaining lines
+  correspond to consecutive bins on the chromosome and contain the integer signal value for each mark.
+  </inputfiles>
+</test>
+
+
+<test name="MakeSegmentation">
+  <inputfiles name='modelfile'>
+    the file with the model parameters to produce a segmentation
+  </inputfiles>
+  <inputfiles name='inputdir'>
+    the directory with the binarized data for which a segmentation should be produced
+  </inputfiles>
+</test>
+
+
+
+<test name="MakeBrowserFiles">
+  <inputfiles name='segmentfile'>
+    The name of a four column tab delimited segmentation file. The four columns are chromosome, start,
+end, and label (.bed)
+  </inputfiles>
+</test>
+
+
+
+<test name="OverlapEnrichment">
+  <inputfiles name='inputsegment'>
+    either a segmentation bed file or if the –posterior option is selected the directory containing the
+posterior files
+  </inputfiles>
+  <inputfiles name='inputcoorddir'>
+    a directory containing the external coordinates for enrichment analysis. If inputcoorddir is a file
+instead of a directory then enrichments for just the file are computed.
+  </inputfiles>
+</test>
+
+
+<test name="NeighborhoodEnrichment">
+  <inputfiles name='inputsegment'>
+    Either a segmentation bed file or if the –posterior option is selected the directory containing the
+posterior file
+  </inputfiles>
+  <inputfiles name='anchorpositions'>
+    Specifies a file containing the coordinates of the anchor positions around which state
+enrichments will be determined. Positions are specified by a chromosome and coordinate.
+  </inputfiles>
+</test>
+
+
+<test name="CompareModels">
+  <inputfiles name='referencemodel'>
+    the file, including the path, to the reference set of emission parameters. This file must start with
+‘emissions_’ and end with ‘.txt’
+  </inputfiles>
+  <inputfiles name='comparedir'>
+    the directory containing all the emission parameters to be compared to. Only files that start with
+‘emissions_’ and end with ‘.txt’ or ‘.txt.gz’ are compared
+  </inputfiles>
+</test>
+
+
+<test name="Reorder">
+  <inputfiles name='inputmodel'>
+    The file for the model that should be reordered
+  </inputfiles>
+</test>
+
+
+<test name="EvalSubset">
+  <inputfiles name='inputmodel'>
+    The file containing the model parameters
+  </inputfiles>
+  <inputfiles name='inputdir'>
+    This is the directory containing the binarized input files. Only file names containing ‘_binary’ are used by
+default.
+  </inputfiles>
+  <inputfiles name='segmentdir'>
+    The directory contains the segmentation bed corresponding to the input data in inputdir. If –
+readposterior or –readstatesbyline is specified then this directory is the directory containing the POSTERIOR and
+STATEBYLINE directory.
+  </inputfiles>
+  <inputfiles name='includemarks'>
+    A binary bit string indicating for each mark if it should be included in the subset (‘1’) or excluded (‘0’).
+  The order of the bits should correspond to the order of the marks in the inputmodel and the data files in inputdir. For
+  instance if the marks in a data file in order are (H3K4me1,H3K4me3,H3K27me3) the bit string 101 would correspond to
+  including H3K4me1 and H3K27me3, but excluding H3K4me3.
+  </inputfiles>
+</test>
+
+
+<test name="StatePruning">
+  <inputfiles name='inputdir'>
+    The name of the directory containing model files to eliminate. Only files with the prefix ‘model_’ in the
+directory are used.
+  </inputfiles>
+</test>
